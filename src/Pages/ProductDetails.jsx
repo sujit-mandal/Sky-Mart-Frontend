@@ -4,6 +4,7 @@ import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { useLocation, useParams } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Navbar from "../components/Navbar";
+import toast from "react-hot-toast";
 
 const ProductDetails = () => {
   const [index, setIndex] = useState(0);
@@ -52,9 +53,11 @@ const ProductDetails = () => {
       .post("https://sky-mart-server-peach.vercel.app/cart/add", cartInfo)
       .then((response) => {
         console.log(response.data);
+        toast.success("Product added at your Cart successfully.")
       })
       .catch((error) => {
         console.error("Error adding to cart:", error);
+        toast.error("Something went wrong. Try again.")
       });
   };
   return (
