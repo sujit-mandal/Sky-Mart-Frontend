@@ -16,26 +16,42 @@ const Signup = () => {
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(name, email, password);
-
-    // if (password.length < 6) {
-    //   toast.error("Password must be at least 6 characters long");
-    //   return;
-    // } else if (
-    //   !/^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).+$/.test(password)
-    // ) {
-    //   toast.error(
-    //     "Password should be contain at least a Capital letter & Special character."
-    //   );
-    //   return;
-    // } else {
-    // }
-
-    createUser(email, password)
-      .then((res) => {})
-      .catch((err) => {
-        console.error(err.message);
-      });
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    } else if (
+      !/^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).+$/.test(password)
+    ) {
+      toast.error(
+        "Password should be contain at least a Capital letter & Special character."
+      );
+      return;
+    } else {
+      createUser(email, password)
+        .then((result) => {
+          toast.success("Account Created Successfully");
+          updateProfile(auth.currentUser, {
+            displayName: name,
+          })
+            .then(() => {
+              logOut()
+                .then(() => {
+                  navigate("/login");
+                })
+                .catch((error) => {
+                  const errorMessage = error.message;
+                  toast.error(errorMessage);
+                });
+            })
+            .catch((error) => {
+              toast.error("Error occurred in profile updating");
+            });
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          toast.error(errorMessage);
+        });
+    }
   };
   return (
     <>

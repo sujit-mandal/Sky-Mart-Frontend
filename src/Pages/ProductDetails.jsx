@@ -15,7 +15,7 @@ const ProductDetails = () => {
   const location = useLocation();
   const isProductDetailsPage = location.pathname.includes("/product-details");
   useEffect(() => {
-    axios.get(`http://localhost:5000/shoe/${params?.id}`).then((res) => {
+    axios.get(`https://sky-mart-server-peach.vercel.app/shoe/${params?.id}`).then((res) => {
       setShoe(res.data);
     });
   }, [params?.id]);
@@ -49,7 +49,7 @@ const ProductDetails = () => {
     };
     console.log(cartInfo);
     axios
-      .post("http://localhost:5000/cart/add", cartInfo)
+      .post("https://sky-mart-server-peach.vercel.app/cart/add", cartInfo)
       .then((response) => {
         console.log(response.data);
       })

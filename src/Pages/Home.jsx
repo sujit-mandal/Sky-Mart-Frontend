@@ -8,7 +8,7 @@ import Footer from "./Footer";
 const Home = () => {
   const [shoes, setShoes] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5000/shoes").then((res) => {
+    axios.get("https://sky-mart-server-peach.vercel.app/shoes").then((res) => {
       setShoes(res.data);
     });
   }, []);
